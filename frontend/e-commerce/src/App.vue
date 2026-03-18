@@ -4,6 +4,8 @@ import {Product} from "./model/product.model"
 import {Cart} from "./model/cart.model"
 
 import ProductCard from "@/components/cart/ProductCard.vue"
+import CartItem from "@/components/cart/CartItem.vue"
+
 
 export default {
 
@@ -16,25 +18,17 @@ export default {
 
   methods: {
     addItem(product: Product){
-
-    const existItem = this.cart.list.find(item => item.product.name === product.name)
-   
-    if(existItem) {
-      existItem.quantity += 1
-      this.cart.total += 1
-    } else {
-      this.cart.list.push({ product, quantity: 1})
-        this.cart.total += 1
-    }
+   this.cart.addItem(product)
   },
 
-    minusItem() {
-      if(this.cart.total>0){
-      this.cart.total -= 1
-      }
+    decrementItem(product: Product){
+   this.cart.decrementItem(product)
+    },
+    removeItem(product: Product){
+      this.cart.removeItem(product)
     }
   },
-  components: { ProductCard }
+  components: { ProductCard, CartItem }
 
 }
 
@@ -44,19 +38,14 @@ export default {
 
   <main>
     <div>
-      <h1>Carrinho com {{ cart.total }} itens</h1>
-      <div v-for="item in cart.list" :key="item.product.name">
-       <div>
-         <h3>{{ item.product.name }}</h3>
-       </div>
-       <p>Total: {{ item.quantity }}</p>
-      </div>
+      <CartItem v-for="item in cart.list" :key="item.product.name" :item="item" @removeItem="removeItem" @decrementItem="decrementItem"></CartItem>
     </div>
-
-    <div v-for="product in products" :key="product.name">
+    <section class="gap-10 grid grid-cols-1 sm:grid-cols2 md:grid-cols-3">
+<div v-for="product in products" :key="product.name">
       <ProductCard :product="product" @onClick="addItem(product)"></ProductCard>
     </div>
-
+    </section>
+    
   </main>
 </template>
 

@@ -1,10 +1,28 @@
 <template>
-<article style="border: 5px solid purple; border-radius: 10px; padding: 20px; margin: 10px;">
+<!-- <article style="border: 5px solid purple; border-radius: 10px; padding: 20px; margin: 10px;">
       <h1>{{ product.name }}</h1>
       <p>Preço: {{ product.price.toFixed(2) }}</p>
       <p>{{ product.description }}</p>
-      <button @click="addItem(product)">Adicionar</button>
-    </article>
+      <Button label="Adicionar" @click="addItem(product)" severity="principal" :outlined="true"/>
+    </article> -->
+
+    <Card :style='{ width: "100%", minWidth: "220px", maxWidth: "240px" }'>
+        <template #header>
+            <img src="https://fastly.picsum.photos/id/9/5000/3269.jpg?hmac=cZKbaLeduq7rNB8X-bigYO8bvPIWtT-mh8GRXtU3vPc" alt="Product Image" 
+            class="w-full object-cover">
+
+        </template>
+        <template #title>
+            <h2> {{ product.name }} </h2>
+        </template>
+        <template #content>
+        <p>Preço: {{ product.price.toFixed(2) }}</p>
+        <p>{{ product.description }}</p>
+        </template>
+        <template #footer>
+                  <Button label="Adicionar" @click="addItem(product)" severity="principal" :outlined="true"/>
+        </template>
+    </Card> 
 </template>
 
 <script lang="ts">
