@@ -1,64 +1,66 @@
 <script lang="ts">
+import { Product } from './model/product.model'
+import { Cart } from './model/cart.model'
+import  ListBox  from 'primevue/listbox'
 
-import {Product} from "./model/product.model"
-import {Cart} from "./model/cart.model"
-
-import ProductCard from "@/components/cart/ProductCard.vue"
+import ProductCard from '@/components/cart/ProductCard.vue'
+import CartItem from '@/components/cart/CartItem.vue'
 
 export default {
-
-  data(){
+  data() {
     return {
       cart: new Cart(),
-      products: [new Product("Convite para um homicidio", 35.90, "Livro", 0.2), new Product("Hora zero", 35.90, "Livro", 0.2), new Product("Um gato entre os pombos", 35.90, "Livro", 0.05)],
+      products: [
+        new Product('Convite para um homicidio', 35.9, 'Livro', 0.2),
+        new Product('Hora zero', 35.9, 'Livro', 0.2),
+        new Product('Um gato entre os pombos', 35.9, 'Livro', 0.05),
+      ],
     }
   },
 
   methods: {
-    addItem(product: Product){
+    addItem(product: Product) {
+      this.cart.addItem(product)
+    },
 
-    const existItem = this.cart.list.find(item => item.product.name === product.name)
-   
-    if(existItem) {
-      existItem.quantity += 1
-      this.cart.total += 1
-    } else {
-      this.cart.list.push({ product, quantity: 1})
-        this.cart.total += 1
-    }
+    decrementItem(product: Product) {
+      this.cart.decrementItem(product)
+    },
+    removeItem(product: Product) {
+      this.cart.removeItem(product)
+    },
   },
-
-    minusItem() {
-      if(this.cart.total>0){
-      this.cart.total -= 1
-      }
-    }
-  },
-  components: { ProductCard }
-
+  components: { ProductCard, CartItem },
 }
-
 </script>
 
 <template>
-
   <main>
-    <div>
-      <h1>Carrinho com {{ cart.total }} itens</h1>
-      <div v-for="item in cart.list" :key="item.product.name">
-       <div>
-         <h3>{{ item.product.name }}</h3>
-       </div>
-       <p>Total: {{ item.quantity }}</p>
-      </div>
+    <h2>Carrinho</h2>
+    <div v-if="cart.list.length > 0" class="flex flex-col gap-5">
+  
+        <CartItem
+          v-for="item in cart.list"
+          :key="item.product.name"
+          :item="item"
+          @removeItem="removeItem"
+          @decrementItem="decrementItem"
+        ></CartItem>
+       
     </div>
-
-    <div v-for="product in products" :key="product.name">
-      <ProductCard :product="product" @onClick="addItem(product)"></ProductCard>
+    <div v-else class="border border-slate-500 bg-slate-200 rounded-md w-1/2 h-64 flex items-center justify-center">
+      <p>O carrinho está vazio.</p>
     </div>
+    
 
+    <div class="grid grid-cols-1 sm:grid-cols-2 flex justify-between bg-gray-300 gap-4">
+      <section class="flex justify-between gap-4">
+        <div v-for="product in products" :key="product.name" class="w-60 h-full">
+          <ProductCard :product="product" @onClick="addItem(product)"></ProductCard>
+        </div>
+      </section>
+    </div>
   </main>
 </template>
 
-<style>
-</style>
+<style></style>
