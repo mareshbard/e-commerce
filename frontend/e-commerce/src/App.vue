@@ -14,6 +14,8 @@ export default {
         new Product('Convite para um homicidio', 35.9, 'Livro', 0.2),
         new Product('Hora zero', 35.9, 'Livro', 0.2),
         new Product('Um gato entre os pombos', 35.9, 'Livro', 0.05),
+        new Product('People We Meet On Vacation', 35.9, 'Livro', 0.05),
+        new Product('Jogos Vorazes', 35.9, 'Livro', 0.05),
       ],
     }
   },
@@ -35,10 +37,10 @@ export default {
 </script>
 
 <template>
-  <main>
+  <main class="flex flex-col gap-10 p-10 w-full h-full" >
     <h2>Carrinho</h2>
-    <div v-if="cart.list.length > 0" class="flex flex-col gap-5">
-  
+<div v-if="cart.list.length > 0" class="flex flex-col gap-5">
+
         <CartItem
           v-for="item in cart.list"
           :key="item.product.name"
@@ -46,20 +48,17 @@ export default {
           @removeItem="removeItem"
           @decrementItem="decrementItem"
         ></CartItem>
-       
-    </div>
-    <div v-else class="border border-slate-500 bg-slate-200 rounded-md w-1/2 h-64 flex items-center justify-center">
+        </div>
+    
+    <div v-else class="border border-slate-500 rounded-md w-full flex items-center justify-center">
       <p>O carrinho está vazio.</p>
     </div>
     
-
-    <div class="grid grid-cols-1 sm:grid-cols-2 flex justify-between bg-gray-300 gap-4">
-      <section class="flex justify-between gap-4">
-        <div v-for="product in products" :key="product.name" class="w-60 h-full">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 ">
+        <div v-for="product in products" :key="product.name" class="w-full max-w-sm">
           <ProductCard :product="product" @onClick="addItem(product)"></ProductCard>
         </div>
-      </section>
-    </div>
+</div>
   </main>
 </template>
 

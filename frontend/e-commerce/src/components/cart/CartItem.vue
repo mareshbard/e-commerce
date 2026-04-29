@@ -3,16 +3,16 @@
         <Card :style='{ width: "100%", minWidth: "220px", maxWidth: "370px" }'>
   
         <template #content>
-            <div class= "flex flex-row gap-10 items-center">
+            <div class= "flex flex-row gap-2 items-center justify-between">
                     <img src="https://fastly.picsum.photos/id/9/5000/3269.jpg?hmac=cZKbaLeduq7rNB8X-bigYO8bvPIWtT-mh8GRXtU3vPc" alt="Product Image" 
-            class="w-20">
+            class="w-40">
                     <h3 class="gap-1"> {{ item.product.name }} </h3>
                     <p>Preço: {{ item.product.price.toFixed(2) }}</p>
                 </div>
         </template>
         <template #footer>
-            <div class="flex flex-row-reverse">
-                <Button label="Deletar" @click="onRemoveItem(item.product)" severity="danger" :outlined="true"/> 
+            <div class="flex flex-row-reverse gap-y-5">
+                <Button label="Deletar" @click="onRemoveItem(item.product)" severity="danger" class="w-full" :outlined="true"/> 
             </div>
         </template>
     </Card>
