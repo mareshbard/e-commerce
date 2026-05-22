@@ -1,11 +1,6 @@
+<template>Products</template>
+
 <script lang="ts">
 import { defineComponent } from 'vue';
 export default defineComponent({})
 </script>
-
-<template>
-  <h1>APP</h1>
-  <RouterView />
-</template>
-
-<style></style>

@@ -7,7 +7,7 @@ export interface CartItem {
 
 export class Cart {
     constructor(public total: number = 0, public list: CartItem[] = []){
-
+        
     }
 
     addItem(product: Product) {
